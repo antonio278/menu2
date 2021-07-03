@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include<windows.h>
+
+void gotoxy(int x,int y){
+    COORD c;
+    c.X = x;
+    c.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),c);
+}
+
+
+
+int main(){
+	int op=1;
+	int tecla;
+	
+	do{
+		printf("\n[1]-Pastel.............R$ 3,50");
+		printf("\n[2]-Suco...............R$ 1,50");
+		printf("\n\nFaca sua escolha: ");
+		 gotoxy(31,op);
+        printf("<-");
+        gotoxy(79,24);
+        do{
+            tecla=0;
+            if(kbhit()){
+                tecla = getch();
+                gotoxy(31,op);
+                printf("  ");
+                if(tecla==224)
+                    tecla = getch();
+                if(tecla == 72)
+                    op--;
+                else
+                    if(tecla == 80)
+                        op++;
+                if(op > 2)
+                    op=1;
+                else
+                    if(op < 1)
+                        op=2;
+                gotoxy(31,op);
+                printf("<-");
+                gotoxy(79,24); /* se não quiser que cursor fique piscando ali */
+            }
+        }while(tecla != 13);
+		
+	}while(op!=2);
+}
+
